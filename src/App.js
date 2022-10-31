@@ -40,20 +40,17 @@ function App() {
 		if (selected.length === 0) {
 		} else if (selected.length === 1) {
 			if (memory.includes(selected[0])) {
-				console.log('you lose!')
-				resetScore()
+				loseGame()
 			} else {
 				setMemory([...memory, selected[0]])
 				setSelected([])
 				if (memory.length === 11) {
-					console.log('you win!')
-					resetScore()
+					winGame()
 				}
 			}
 		}
 	}, [selected, memory])
 
-	// shuffle cards
 	function shuffleCards() {
 		const shuffleCards = [...cardImages]
 			.sort(() => Math.random() - 0.5)
@@ -79,6 +76,16 @@ function App() {
 		setScore(0)
 	}
 
+	function winGame() {
+		alert('You win!')
+		resetScore()
+	}
+
+	function loseGame() {
+		alert('You lose!')
+		resetScore()
+	}
+
 	return (
 		<main className="container-fluid">
 			<div>
@@ -87,7 +94,7 @@ function App() {
 					<button className="btn btn-light" onClick={shuffleCards}>
 						New Game
 					</button>
-					<h1 className="container text-center">
+					<h1 id="scoreboard" className="container text-center">
 						<div className="text-light">{score}</div>
 					</h1>
 					<div className="container">
@@ -96,7 +103,6 @@ function App() {
 						))}
 					</div>
 				</div>
-				{/*<Scoreboard />*/}
 				<Footer />
 			</div>
 		</main>
